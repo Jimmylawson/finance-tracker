@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
+
 public class User {
     @Id
     private Long id;

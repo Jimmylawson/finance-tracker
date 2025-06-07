@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class Budget {
     @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String category;
     private Double limitAmount;
