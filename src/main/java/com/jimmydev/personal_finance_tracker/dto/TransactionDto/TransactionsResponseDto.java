@@ -6,13 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
 public class TransactionsResponseDto {
-    private Double amount;
+    private BigDecimal amount;
     private LocalDate date;
     private String type;
     private String category;

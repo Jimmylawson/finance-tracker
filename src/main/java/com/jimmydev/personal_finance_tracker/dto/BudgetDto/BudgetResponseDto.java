@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BudgetResponseDto {
     private String category;
-    private Double limitAmount;
+    private BigDecimal limitAmount;
    private LocalDate month;
    private Long userId;
 

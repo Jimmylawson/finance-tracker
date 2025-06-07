@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -16,9 +17,13 @@ import java.time.LocalDate;
 public class Budget {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "budget_id", nullable = false)
     private Long id;
+    @Column(name = "category", nullable = false, length = 50)
     private String category;
-    private Double limitAmount;
+    @Column(name = "limit_amount", nullable = false, precision = 10, scale = 2)
+    private BigDecimal limitAmount;
+    @Column(name = "spent_amount", nullable = false, precision = 10, scale = 2)
     private LocalDate month;
 
     @ManyToOne
