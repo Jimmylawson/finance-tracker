@@ -1,10 +1,7 @@
 package com.jimmydev.personal_finance_tracker.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "budget")
+@Builder
 @RequiredArgsConstructor
 public class Budget {
     @Id

@@ -12,8 +12,9 @@ public interface UserMapper {
     /*
     * UserMapper mapper
     * */
-
+    /// from entity to dto
     UserResponseDto toResponse(User user);
+    /// from dto to entity
     User toEntity(UserRequestDto requestDto);
 
 }

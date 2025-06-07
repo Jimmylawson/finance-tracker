@@ -3,6 +3,7 @@ package com.jimmydev.personal_finance_tracker.services.ServiceImpls;
 
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
 import com.jimmydev.personal_finance_tracker.entity.User;
+import com.jimmydev.personal_finance_tracker.mapper.UserMapper;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.IService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
 
     @Override
