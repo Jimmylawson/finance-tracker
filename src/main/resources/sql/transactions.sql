@@ -6,5 +6,8 @@ CREATE TABLE IF NOT EXISTS transactions(
     category VARCHAR(100) NOT NULL,
     date DATE NOT NULL,
     user_id BIGINT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(user_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by VARCHAR(50) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(user_id)
+
 )

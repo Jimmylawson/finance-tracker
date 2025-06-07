@@ -2,13 +2,15 @@ spring:
   application:
     name : finance-tracker-backend
   datasource:
-    url:  jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:finance-tracker}
+    url:  jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3308}/${DATABASE_NAME:finance-tracker}
     username: ${DATABASE_USERNAME:root}
-    password: ${DATABASE_PASSWORD:password}
+    password: ${DATABASE_PASSWORD:root}
     jpa:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
         ddl-auto: update
       show-sql: true
+
 
 
 
