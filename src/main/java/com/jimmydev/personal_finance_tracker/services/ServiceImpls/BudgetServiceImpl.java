@@ -2,16 +2,14 @@ package com.jimmydev.personal_finance_tracker.services.ServiceImpls;
 
 import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetResponseDto;
-import com.jimmydev.personal_finance_tracker.entity.Budget;
-import com.jimmydev.personal_finance_tracker.entity.User;
 import com.jimmydev.personal_finance_tracker.exceptions.UserNotFoundException;
 import com.jimmydev.personal_finance_tracker.mapper.BudgetMapper;
 import com.jimmydev.personal_finance_tracker.repository.BudgetRepository;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.BudgetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -64,5 +62,18 @@ public class BudgetServiceImpl implements BudgetService {
                 .orElseThrow(()-> new UserNotFoundException("Budget not found for user with id: " + id));
 
         budgetRepository.delete(budget);
+    }
+
+    @Override
+    public List<BudgetResponseDto> getAllBudgetByUser(Long userId) {
+        var budgets  = budgetRepository.findAllByUserId(userId);
+        if (budgets.isEmpty()) {
+            throw new UserNotFoundException("No budgets found for user with id: " + userId);
+        }
+
+        return budgets
+                .stream()
+                .map(budgetMapper::toResponseDto)
+                .toList();
     }
 }

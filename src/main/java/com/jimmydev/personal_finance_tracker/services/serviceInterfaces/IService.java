@@ -1,6 +1,7 @@
 package com.jimmydev.personal_finance_tracker.services.serviceInterfaces;
 
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
 import com.jimmydev.personal_finance_tracker.entity.User;
 
 import java.util.List;
@@ -11,9 +12,10 @@ public interface IService {
     // that can be implemented by various service classes in the application.
 
     // Example method signatures can be added here, such as:
-     void save(UserRequestDto entity);
-    Optional<User> findById(Long id);
-    List<User> findAll();
+     UserResponseDto save(UserRequestDto entity);
+    UserResponseDto findById(Long id);
+    List<UserResponseDto> findAll();
      void deleteById(Long id);
+
 
 }

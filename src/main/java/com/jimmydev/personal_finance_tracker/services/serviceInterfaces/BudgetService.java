@@ -4,6 +4,7 @@ import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetResponseDto;
 import com.jimmydev.personal_finance_tracker.entity.Budget;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BudgetService {
@@ -12,6 +13,6 @@ public interface BudgetService {
     BudgetResponseDto findById(Long id);
     BudgetResponseDto update(Long id, BudgetResponseDto budgetResponseDto);
     void deleteById(Long id);
-
+    List<BudgetResponseDto> getAllBudgetByUser(Long userId);
 
 }

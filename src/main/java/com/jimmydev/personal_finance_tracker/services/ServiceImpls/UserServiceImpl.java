@@ -2,7 +2,9 @@ package com.jimmydev.personal_finance_tracker.services.ServiceImpls;
 
 
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
-import com.jimmydev.personal_finance_tracker.entity.User;
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
+
+import com.jimmydev.personal_finance_tracker.exceptions.UserNotFoundException;
 import com.jimmydev.personal_finance_tracker.mapper.UserMapper;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.IService;
@@ -20,22 +22,39 @@ public class UserServiceImpl implements IService {
 
 
     @Override
-    public void save(UserRequestDto entity) {
+    public UserResponseDto save(UserRequestDto entity) {
+        var userEntity = userMapper.toEntity(entity);
+
+        userRepository.save(userEntity);
+
+        return userMapper.toResponse(userEntity);
 
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return null;
+    public UserResponseDto findById(Long id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + id));
+
+        return userMapper.toResponse(user);
     }
 
     @Override
-    public List<User> findAll() {
-        return List.of();
+    public List<UserResponseDto> findAll() {
+
+        var users = userRepository.findAll()
+                .stream()
+                .map(userMapper::toResponse)
+                .toList();
+
+        return users;
     }
 
     @Override
     public void deleteById(Long id) {
+        var user = userRepository.findById(id)
+                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + id));
 
+        userRepository.delete(user);
     }
 }

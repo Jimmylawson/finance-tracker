@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface TransactionService{
 
-    void addTransaction(TransactionsRequestDto transactionRequestDto);
+    TransactionsResponseDto addTransaction(TransactionsRequestDto transactionRequestDto);
 
     void deleteTransaction(Long transactionId);
     TransactionsResponseDto updateTransaction(Long transactionId, TransactionsRequestDto transactionRequestDto);
-    Optional<TransactionsResponseDto> getTransactionById(Long transactionId);
+    TransactionsResponseDto getTransactionById(Long transactionId);
     List<TransactionsResponseDto> getAllTransactionsByUserId(Long userId);
 
 }
