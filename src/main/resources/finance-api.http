@@ -1,0 +1,22 @@
+### USER APIS
+
+
+
+### Get a user
+GET http://localhost:8080/api/v1/user/{id}
+
+### create a users
+POST http://localhost:8080/api/v1/user
+
+### get all users
+###
+GET http://localhost:8080/api/v1/users
+
+
+### BUDGET APIS
+
+###
+GET http://localhost:8080/api/v1/budget
+
+###
+GET http://localhost:8080/api/v1/transactions
