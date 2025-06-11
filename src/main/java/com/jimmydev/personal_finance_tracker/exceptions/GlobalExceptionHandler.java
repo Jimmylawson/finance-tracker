@@ -35,6 +35,17 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleUserAlreadyExistsException(UserAlreadyExistsException ex){
+        log.error("User already exists exception occurred: {}", ex.getMessage());
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                "User already exists",
+                HttpStatus.CONFLICT,
+                ex.getMessage(), LocalDateTime.now());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.CONFLICT);
+    }
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGenericException(Exception ex, WebRequest webRequest) {
         log.error("An exception occurred: {}", ex.getMessage());
