@@ -2,16 +2,15 @@ package com.jimmydev.personal_finance_tracker.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="transactions")
 public class Transactions extends  BaseEntity {
     @Id

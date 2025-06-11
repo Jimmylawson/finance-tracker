@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+
 public class BudgetServiceImpl implements BudgetService {
     private final BudgetRepository budgetRepository;
     private final BudgetMapper budgetMapper;
@@ -41,12 +42,12 @@ public class BudgetServiceImpl implements BudgetService {
 
     /// Updating a user with new budget details
     @Override
-    public BudgetResponseDto update(Long id, BudgetResponseDto budgetResponseDto) {
+    public BudgetResponseDto update(Long id, BudgetRequestDto budgeRequestDto) {
         var budget = budgetRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException("Budget not found for user with id: " + id));
 
         // Update the budget entity with new values from the DTO
-        budgetMapper.updateBudgetFromDto(budgetResponseDto, budget);
+        budgetMapper.updateBudgetFromDto(budgeRequestDto, budget);
 
         // Save the updated entity back to the repository
         var updatedBudget = budgetRepository.save(budget);

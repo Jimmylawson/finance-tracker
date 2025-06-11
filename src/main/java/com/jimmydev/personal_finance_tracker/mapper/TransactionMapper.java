@@ -16,6 +16,6 @@ public interface TransactionMapper {
     Transactions toEntity(TransactionsRequestDto transactionsRequestDto);
 
     //Updating entity with new values from dto
-    @Mapping(target = "id", ignore = true) // Prevent overwriting the id
-    TransactionsResponseDto updateEntityFromDto(TransactionsRequestDto dto, @MappingTarget Transactions entity);
+    @Mapping(target = "id",ignore = true) // Prevent overwriting the id
+    void updateEntityFromDto(TransactionsRequestDto dto, @MappingTarget Transactions entity);
 }

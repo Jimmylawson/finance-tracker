@@ -22,6 +22,6 @@ public interface BudgetMapper {
 
     // Add this method:
     @Mapping(target = "id", ignore = true) // Prevent overwriting the id
-    void updateBudgetFromDto(BudgetResponseDto dto, @MappingTarget Budget entity);
+    void updateBudgetFromDto(BudgetRequestDto dto, @MappingTarget Budget entity);
 
 }
