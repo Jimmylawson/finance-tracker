@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name="transactions")
 public class Transactions extends  BaseEntity {
     @Id

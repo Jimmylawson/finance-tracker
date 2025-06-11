@@ -4,9 +4,7 @@ package com.jimmydev.personal_finance_tracker.mapper;
 import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetResponseDto;
 import com.jimmydev.personal_finance_tracker.entity.Budget;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface BudgetMapper {
@@ -21,7 +19,8 @@ public interface BudgetMapper {
     Budget toEntity(BudgetRequestDto requestDto);
 
     // Add this method:
-    @Mapping(target = "id", ignore = true) // Prevent overwriting the id
+    //@Mapping(target ="id", ignore = true) // Prevent overwriting the id
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateBudgetFromDto(BudgetRequestDto dto, @MappingTarget Budget entity);
 
 }

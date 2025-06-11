@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
-@AllArgsConstructor
+
 public class TransactionsResponseDto {
     private BigDecimal amount;
     private LocalDate date;

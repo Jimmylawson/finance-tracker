@@ -7,9 +7,11 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name= "user")
 public class User {
     @Id

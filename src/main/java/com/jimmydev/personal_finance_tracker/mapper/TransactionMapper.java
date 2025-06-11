@@ -3,9 +3,7 @@ package com.jimmydev.personal_finance_tracker.mapper;
 import com.jimmydev.personal_finance_tracker.dto.TransactionDto.TransactionsRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.TransactionDto.TransactionsResponseDto;
 import com.jimmydev.personal_finance_tracker.entity.Transactions;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {
@@ -16,6 +14,7 @@ public interface TransactionMapper {
     Transactions toEntity(TransactionsRequestDto transactionsRequestDto);
 
     //Updating entity with new values from dto
-    @Mapping(target = "id",ignore = true) // Prevent overwriting the id
+    //@Mapping(target = "id",ignore = true) // Prevent overwriting the id
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(TransactionsRequestDto dto, @MappingTarget Transactions entity);
 }

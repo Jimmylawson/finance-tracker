@@ -4,6 +4,7 @@ import com.jimmydev.personal_finance_tracker.entity.Budget;
 import com.jimmydev.personal_finance_tracker.entity.Transactions;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BudgetResponseDto {
     private String category;
     private BigDecimal limitAmount;
