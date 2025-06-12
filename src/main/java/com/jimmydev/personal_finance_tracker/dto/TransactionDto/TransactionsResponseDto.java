@@ -19,7 +19,6 @@ public class TransactionsResponseDto {
     private String type;
     private String category;
     private String description;
-    private Long userId; /// to associate the transaction with a user
     private UserSummaryDto user;
 
 }

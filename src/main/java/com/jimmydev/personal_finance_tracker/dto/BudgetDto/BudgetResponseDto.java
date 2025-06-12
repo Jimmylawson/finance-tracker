@@ -1,5 +1,6 @@
 package com.jimmydev.personal_finance_tracker.dto.BudgetDto;
 
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserSummaryDto;
 import com.jimmydev.personal_finance_tracker.entity.Budget;
 import com.jimmydev.personal_finance_tracker.entity.Transactions;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,5 @@ public class BudgetResponseDto {
     private String category;
     private BigDecimal limitAmount;
    private LocalDate month;
-   private Long userId;
-
+   private UserSummaryDto user;
 }

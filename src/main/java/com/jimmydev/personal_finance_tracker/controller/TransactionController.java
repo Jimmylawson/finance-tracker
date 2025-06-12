@@ -26,7 +26,7 @@ public class TransactionController {
     private final TransactionService transactionService;
 
 
-    @GetMapping("/users{userId}/transactions")
+    @GetMapping("/users/{userId}/transactions")
     public ResponseEntity<Page<TransactionsResponseDto>> getAllTransactions(@Valid @PathVariable Long transactionId,
                                                                         @PageableDefault(size = 20, sort="date" , direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(transactionService.getAllTransactionsByUserId(transactionId,pageable));

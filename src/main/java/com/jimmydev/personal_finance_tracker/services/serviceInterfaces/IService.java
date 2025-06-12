@@ -2,6 +2,7 @@ package com.jimmydev.personal_finance_tracker.services.serviceInterfaces;
 
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserUpdateDto;
 import com.jimmydev.personal_finance_tracker.entity.User;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
 
@@ -18,6 +19,6 @@ public interface IService {
     UserResponseDto findById(Long id);
     List<UserResponseDto> findAll();
      void deleteById(Long id);
-
+     UserUpdateDto updateUser(Long id, UserRequestDto userRequestDto);
 
 }

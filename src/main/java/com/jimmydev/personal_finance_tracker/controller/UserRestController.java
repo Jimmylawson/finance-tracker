@@ -3,6 +3,7 @@ package com.jimmydev.personal_finance_tracker.controller;
 
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserUpdateDto;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.IService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class UserRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<List<UserResponseDto>> createUsers( @RequestBody List<@Valid UserRequestDto> userRequestDto){
+    public ResponseEntity<List<UserResponseDto>> createMultipleUsers(@RequestBody List<@Valid UserRequestDto> userRequestDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUsers(userRequestDto));
 
     }
@@ -62,4 +63,23 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> deleteUser(@Valid @PathVariable Long id){
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<UserUpdateDto> partialUpdateUser(@Valid @PathVariable Long id, @RequestBody UserRequestDto userRequestDto){
+
+        return ResponseEntity.ok(userService.updateUser(id, userRequestDto));
+    }
+
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<UserUpdateDto> updateUser(
+            @PathVariable Long id,
+            @RequestBody @Valid UserRequestDto userRequestDto) {
+
+        return ResponseEntity.ok(userService.updateUser(id, userRequestDto));
+    }
 }

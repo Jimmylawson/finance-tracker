@@ -2,6 +2,8 @@ package com.jimmydev.personal_finance_tracker.services.ServiceImpls;
 
 import com.jimmydev.personal_finance_tracker.dto.TransactionDto.TransactionsRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.TransactionDto.TransactionsResponseDto;
+import com.jimmydev.personal_finance_tracker.entity.Transactions;
+import com.jimmydev.personal_finance_tracker.entity.User;
 import com.jimmydev.personal_finance_tracker.exceptions.TransactionNotFoundException;
 import com.jimmydev.personal_finance_tracker.exceptions.UserNotFoundException;
 import com.jimmydev.personal_finance_tracker.mapper.TransactionMapper;
@@ -24,6 +26,12 @@ public class TransactionServiceImpl implements TransactionService {
     private final UserRepository userRepository;
 
 
+    private Transactions getUserOrThrow(Long id) {
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+    }
+
+
     @Override
     public TransactionsResponseDto addTransaction(TransactionsRequestDto transactionRequestDto) {
         //adding transaction to the database
@@ -39,17 +47,13 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void deleteTransaction(Long transactionId) {
-        var transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(()-> new TransactionNotFoundException("Transaction not found for user with id: " + transactionId));
-
+        var transaction = getUserOrThrow(transactionId );
         transactionRepository.delete(transaction);
     }
 
     @Override
     public TransactionsResponseDto updateTransaction(Long transactionId, TransactionsRequestDto transactionRequestDto) {
-        var transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new UserNotFoundException("Transaction not found with id: " + transactionId));
-
+        var transaction = getUserOrThrow(transactionId );
         transactionMapper.updateEntityFromDto(transactionRequestDto,transaction);
         // Saving the updated transaction entity back to the repository
         var updatedTransaction = transactionRepository.save(transaction);
@@ -61,24 +65,18 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionsResponseDto getTransactionById(Long transactionId) {
-        var transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new UserNotFoundException("Transaction not found with id: " + transactionId));
+        var transaction = getUserOrThrow(transactionId );
 
         return transactionMapper.toResponse(transaction);
     }
-//
-//    @Override
-//    public Page<TransactionsResponseDto> getAllTransactionsByUserId(Long userId, Pageable pageable) {
-//
-//    }
+
 
     @Override
     public Page<TransactionsResponseDto> getAllTransactionsByUserId(Long userId,Pageable pageable) {
 
        /// Get User first
-        var user  = userRepository.findById(userId)
+        var user  =  userRepository.findById(userId)
                 .orElseThrow(()->  new UserNotFoundException("User not found with id: " + userId));
-
         /// retrieve the user from the transactions entity
         var transactions = transactionRepository.findAllByUserId(user.getId(), pageable);
 

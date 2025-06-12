@@ -6,7 +6,7 @@ import com.jimmydev.personal_finance_tracker.dto.BudgetDto.BudgetResponseDto;
 import com.jimmydev.personal_finance_tracker.entity.Budget;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses= UserMapper.class)
 public interface BudgetMapper {
 
     // Define mapping methods here, e.g.:

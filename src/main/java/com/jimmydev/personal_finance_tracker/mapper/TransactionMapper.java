@@ -5,7 +5,7 @@ import com.jimmydev.personal_finance_tracker.dto.TransactionDto.TransactionsResp
 import com.jimmydev.personal_finance_tracker.entity.Transactions;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses= UserMapper.class)
 public interface TransactionMapper {
 
     /// from entity to dto

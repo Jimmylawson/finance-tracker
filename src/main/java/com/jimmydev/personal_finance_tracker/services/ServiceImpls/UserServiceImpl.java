@@ -4,6 +4,8 @@ package com.jimmydev.personal_finance_tracker.services.ServiceImpls;
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserRequestDto;
 import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
 
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserUpdateDto;
+import com.jimmydev.personal_finance_tracker.entity.User;
 import com.jimmydev.personal_finance_tracker.exceptions.UserNotFoundException;
 import com.jimmydev.personal_finance_tracker.mapper.UserMapper;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
@@ -24,6 +26,11 @@ public class UserServiceImpl implements IService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+
+    private User getUserOrThrow(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+    }
 
     @Override
     public UserResponseDto save(UserRequestDto userRequestDto) {
@@ -56,8 +63,7 @@ public class UserServiceImpl implements IService {
 
     @Override
     public UserResponseDto findById(Long id) {
-        var user = userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + id));
+        var user =  getUserOrThrow(id);
 
         return userMapper.toResponse(user);
     }
@@ -75,9 +81,18 @@ public class UserServiceImpl implements IService {
 
     @Override
     public void deleteById(Long id) {
-        var user = userRepository.findById(id)
-                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + id));
+        var user = getUserOrThrow(id);
 
         userRepository.delete(user);
+    }
+
+    @Override
+    public UserUpdateDto updateUser(Long id, UserRequestDto userRequestDto) {
+        var  user  = getUserOrThrow(id);;
+        userMapper.updateEntityFromDto(userRequestDto, user);
+        userRepository.save(user);///persist data
+        return userMapper.toUpdate(user);
+
+
     }
 }
