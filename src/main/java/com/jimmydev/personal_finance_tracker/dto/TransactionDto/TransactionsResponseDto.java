@@ -1,5 +1,6 @@
 package com.jimmydev.personal_finance_tracker.dto.TransactionDto;
 
+import com.jimmydev.personal_finance_tracker.dto.UserDto.UserSummaryDto;
 import com.jimmydev.personal_finance_tracker.entity.Budget;
 import com.jimmydev.personal_finance_tracker.entity.Transactions;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,6 @@ public class TransactionsResponseDto {
     private String category;
     private String description;
     private Long userId; /// to associate the transaction with a user
-
+    private UserSummaryDto user;
 
 }

@@ -40,7 +40,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void deleteTransaction(Long transactionId) {
         var transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(()-> new UserNotFoundException("Transaction not found with id: " + transactionId));
+                .orElseThrow(()-> new TransactionNotFoundException("Transaction not found for user with id: " + transactionId));
 
         transactionRepository.delete(transaction);
     }
@@ -83,7 +83,7 @@ public class TransactionServiceImpl implements TransactionService {
         var transactions = transactionRepository.findAllByUserId(user.getId(), pageable);
 
 
-        if(transactions.isEmpty()) throw new TransactionNotFoundException("No transaction found for user with id: " + userId );
+        //if(transactions.isEmpty()) throw new TransactionNotFoundException("No transaction found for user with id: " + userId );
 
         return transactions.map(transactionMapper::toResponse);
 
