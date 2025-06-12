@@ -67,4 +67,3 @@ A Spring Boot-based backend API for tracking users' budgets and transactions. Th
 | GET    | `/api/v1/transactions/{id}`   | Get transaction by ID   |
 | GET    | `/api/v1/transactions/user/{id}` | List user transactions |
 | DELETE | `/api/v1/transactions/{id}`   | Delete transaction      |
-Structure
