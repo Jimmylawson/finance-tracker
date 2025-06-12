@@ -6,7 +6,7 @@ import com.jimmydev.personal_finance_tracker.dto.UserDto.UserResponseDto;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.IService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -35,6 +35,12 @@ public class UserRestController {
         var user = userService.save(userRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<List<UserResponseDto>> createUsers( @RequestBody List<@Valid UserRequestDto> userRequestDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUsers(userRequestDto));
 
     }
 

@@ -10,8 +10,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class UserResponseDto {
     private String username;
     private String email;
