@@ -27,12 +27,18 @@ public class TransactionController {
 
 
     @GetMapping("/users/{userId}/transactions")
-    public ResponseEntity<Page<TransactionsResponseDto>> getAllTransactions(@Valid @PathVariable Long transactionId,
+    public ResponseEntity<Page<TransactionsResponseDto>> getTransactionsByAUser(@Valid @PathVariable Long userId,
                                                                         @PageableDefault(size = 20, sort="date" , direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(transactionService.getAllTransactionsByUserId(transactionId,pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(transactionService.getAllTransactionsByUserId(userId,pageable));
     }
 
-    @GetMapping("/transaction/{userId}")
+    @GetMapping("/transactions")
+    public ResponseEntity<List<TransactionsResponseDto>>getAllTransactions(){
+
+        return ResponseEntity.ok(transactionService.getAllTransactions());
+    }
+
+    @GetMapping("/transaction/{transactionId}")
     public ResponseEntity<TransactionsResponseDto> getTransaction(@Valid @PathVariable Long transactionId){
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -48,7 +54,7 @@ public class TransactionController {
             );
     }
 
-    @PatchMapping("/transaction/{userId}")
+    @PatchMapping("/transaction/{transactionId}")
     public ResponseEntity<TransactionsResponseDto> updateTransaction(@Valid @PathVariable Long transactionId, @Valid @RequestBody TransactionsRequestDto transactionsRequestDto){
 
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -56,7 +62,7 @@ public class TransactionController {
         );
     }
 
-    @PutMapping("/transaction/{userId}")
+    @PutMapping("/transaction/{transactionId}")
     public ResponseEntity<TransactionsResponseDto> updatePutTransaction(@Valid @PathVariable Long transactionId, @Valid @RequestBody TransactionsRequestDto transactionsRequestDto){
 
         return ResponseEntity.status(HttpStatus.OK).body(
@@ -65,7 +71,7 @@ public class TransactionController {
     }
 
 
-    @DeleteMapping("/transaction/{userId}")
+    @DeleteMapping("/transaction/{transactionId}")
     public ResponseEntity<Void> deleteTransaction(@Valid @PathVariable Long transactionId){
         transactionService.deleteTransaction(transactionId);
         return ResponseEntity

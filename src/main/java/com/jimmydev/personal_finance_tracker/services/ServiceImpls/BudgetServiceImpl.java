@@ -38,10 +38,24 @@ public class BudgetServiceImpl implements BudgetService {
 
 
     @Override
+    public List<BudgetResponseDto> getAllBudgets() {
+        var transactions =  budgetRepository.findAll();
+
+        return transactions
+                .stream()
+                .map(budgetMapper::toResponseDto)
+                .toList();
+    }
+
+    @Override
     public BudgetResponseDto save(BudgetRequestDto budgetRequestDto) {
         // Transform the BudgetRequestDto to an entity using the mapper
         var budgetEntity = budgetMapper.toEntity(budgetRequestDto);
 
+        var user = userRepository.findById(budgetRequestDto.getUserId())
+                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + budgetRequestDto.getUserId()));
+        /// set the user entity
+        budgetEntity.setUser(user);
         // Save the entity to the repository
         var savedBudget = budgetRepository.save(budgetEntity);
 

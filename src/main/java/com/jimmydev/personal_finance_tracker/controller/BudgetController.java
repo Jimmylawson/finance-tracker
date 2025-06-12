@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -35,9 +37,14 @@ public class BudgetController {
         return ResponseEntity.status(HttpStatus.CREATED).body(budgetService.save(requestDto));
     }
     @GetMapping("/users/{userId}/budget")
-    public ResponseEntity<Page<BudgetResponseDto>> getAllUsersBudget(@Valid @PathVariable Long id,
+    public ResponseEntity<Page<BudgetResponseDto>> getAllBudgetByAUser(@Valid @PathVariable Long userId,
                                                                      @PageableDefault(size=20, sort="date",direction = Sort.Direction.DESC) Pageable pageable){
-            return ResponseEntity.ok(budgetService.getAllBudgetByUser(id,pageable));
+            return ResponseEntity.ok(budgetService.getAllBudgetByUser(userId,pageable));
+    }
+
+    @GetMapping("/budgets")
+    public ResponseEntity<List<BudgetResponseDto>> getAllBudgets(){
+        return ResponseEntity.ok(budgetService.getAllBudgets());
     }
 
 

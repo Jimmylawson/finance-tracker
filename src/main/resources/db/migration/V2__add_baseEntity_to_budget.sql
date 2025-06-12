@@ -1,0 +1,4 @@
+
+ALTER TABLE budget
+    ADD COLUMN created_at DATETIME  DEFAULT CURRENT_TIMESTAMP,
+    ADD COLUMN created_by VARCHAR(50) DEFAULT 'system';

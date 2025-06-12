@@ -37,7 +37,10 @@ public class TransactionServiceImpl implements TransactionService {
         //adding transaction to the database
         var transactionEntity = transactionMapper.toEntity(transactionRequestDto);
         /// Saving the transaction entity to the repository
-
+        var user = userRepository.findById(transactionRequestDto.getUserId())
+                .orElseThrow(()-> new UserNotFoundException("User not found with id: " + transactionRequestDto.getUserId()));
+        /// set the user entity
+        transactionEntity.setUser(user);
         var saveTransaction = transactionRepository.save(transactionEntity);
 
         // Transforming the saved entity back to a DTO and returning it
@@ -85,5 +88,15 @@ public class TransactionServiceImpl implements TransactionService {
 
         return transactions.map(transactionMapper::toResponse);
 
+    }
+
+    @Override
+    public List<TransactionsResponseDto> getAllTransactions() {
+        var transactions =  transactionRepository.findAll();
+
+        return transactions
+                .stream()
+                .map(transactionMapper::toResponse)
+                .toList();
     }
 }

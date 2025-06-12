@@ -16,5 +16,5 @@ public interface TransactionService{
     TransactionsResponseDto updateTransaction(Long transactionId, TransactionsRequestDto transactionRequestDto);
     TransactionsResponseDto getTransactionById(Long transactionId);
     Page<TransactionsResponseDto> getAllTransactionsByUserId(Long userId, Pageable pageable);
-
+    List<TransactionsResponseDto> getAllTransactions();
 }
