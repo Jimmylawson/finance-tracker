@@ -38,6 +38,19 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleTransactionNotFoundException(UserNotFoundException ex) {
+        log.error("Transaction for user not found: {}", ex.getMessage());
+        var errorResponseDto = new ErrorResponseDto(
+                "Transaction not found",
+                HttpStatus.NOT_FOUND,
+                ex.getMessage(),
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+
+    }
+
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponseDto> handleUserAlreadyExistsException(UserAlreadyExistsException ex){
         log.error("User already exists exception occurred: {}", ex.getMessage());
