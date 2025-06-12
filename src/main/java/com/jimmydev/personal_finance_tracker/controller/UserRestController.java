@@ -7,6 +7,7 @@ import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.IService
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class UserRestController {
     private final IService userService;
 
@@ -33,6 +35,7 @@ public class UserRestController {
     @PostMapping("/user")
     public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDto){
         var user = userService.save(userRequestDto);
+        log.debug("Received user request: {}", userRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
 
