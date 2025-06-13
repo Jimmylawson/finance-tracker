@@ -7,6 +7,8 @@ import com.jimmydev.personal_finance_tracker.entity.Budget;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +20,6 @@ public interface BudgetService {
     void deleteById(Long id);
     Page<BudgetResponseDto> getAllBudgetByUser(Long userId, Pageable pageable);
     List<BudgetResponseDto> getAllBudgets();
-
+    public BigDecimal getTotalBudget(Long userId, YearMonth yearMonth);
+    public boolean isOverspending(Long userId, YearMonth month);
 }

@@ -9,6 +9,7 @@ import com.jimmydev.personal_finance_tracker.mapper.BudgetMapper;
 import com.jimmydev.personal_finance_tracker.repository.BudgetRepository;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.BudgetService;
+import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 
@@ -30,6 +34,7 @@ public class BudgetServiceImpl implements BudgetService {
     private final BudgetRepository budgetRepository;
     private final BudgetMapper budgetMapper;
     private final UserRepository userRepository;
+    private final TransactionService transactionService;
 
     private Budget getBudgetOrThrow(Long id) {
         return budgetRepository.findById(id)
@@ -46,6 +51,23 @@ public class BudgetServiceImpl implements BudgetService {
                 .map(budgetMapper::toResponseDto)
                 .toList();
     }
+
+    @Override
+    public BigDecimal getTotalBudget(Long userId, YearMonth yearMonth) {
+        LocalDate start = yearMonth.atDay(1);
+        LocalDate end = yearMonth.atEndOfMonth();
+
+        return budgetRepository.sumLimitByUserAndMonth(userId, start, end);
+    }
+
+    @Override
+    public boolean isOverspending(Long userId, YearMonth month) {
+        BigDecimal totalBudget = getTotalBudget(userId,month);
+        BigDecimal totalExpenses = transactionService.getTotalExpenses(userId, month);
+
+        return totalExpenses.compareTo(totalBudget) > 0;
+    }
+
 
     @Override
     public BudgetResponseDto save(BudgetRequestDto budgetRequestDto) {

@@ -11,10 +11,14 @@ import com.jimmydev.personal_finance_tracker.repository.TransactionRepository;
 import com.jimmydev.personal_finance_tracker.repository.UserRepository;
 import com.jimmydev.personal_finance_tracker.services.serviceInterfaces.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +92,24 @@ public class TransactionServiceImpl implements TransactionService {
 
         return transactions.map(transactionMapper::toResponse);
 
+    }
+
+    @Override
+    public BigDecimal getTotalIncome(Long userId, YearMonth month) {
+        LocalDate start = month.atDay(1);
+        LocalDate end = month.atEndOfMonth();
+        BigDecimal income = transactionRepository.sumByUserAndTypeAndDateRange(userId,"INCOME",start, end);
+
+        return income != null ? income : BigDecimal.ZERO;
+    }
+
+    @Override
+    public BigDecimal getTotalExpenses(Long userId, YearMonth month) {
+        LocalDate start = month.atDay(1);
+        LocalDate end = month.atEndOfMonth();
+        BigDecimal expenses = transactionRepository.sumByUserAndTypeAndDateRange(userId,"EXPENSE",start, end);
+
+        return expenses != null ? expenses : BigDecimal.ZERO;
     }
 
     @Override
